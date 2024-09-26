@@ -18,7 +18,7 @@ load_dotenv()
 
 
 client = OpenAI()
-pdf_path = 'Boeing-2022-Annual-Report.pdf'
+pdf_path = './LLM-Evaluation/data/Boeing-2022-Annual-Report.pdf'
 encoding = tiktoken.encoding_for_model("text-embedding-ada-002")
 
 chunk_size = 300
@@ -64,7 +64,7 @@ def chunker(text):
 
 @timed
 def get_embed(text):
-    return client.embeddings.create(input = [text],  model = 'text-embedding-3-small').data[0].embedding
+    return client.embeddings.create(input = [text],  model = 'text-embedding-3-large').data[0].embedding   # text-embedding-3-small can be sued as well
 
 
 
@@ -85,7 +85,7 @@ def run_main(pdf_path):
 
 chunks , embeddings = run_main(pdf_path)
 
-with open('boeing.pkl', 'wb') as file:
+with open('boeing_op_l.pkl', 'wb') as file:
     pickle.dump((chunks, embeddings), file)
 
 
